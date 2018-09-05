@@ -46,17 +46,24 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 	sorted_tvs = sort_list(ratings,tvs)
 	ratings.sort()
 	avg_view = np.array(sorted_tvs)*10**4 * np.array(ratings) 
-	colors = 14*np.ones(29)
+	colors = '#377eb8'
 	xticks = np.arange(29)
-	plt.figure(figsize = (12,6))
-	plt.scatter(xticks,ratings,s=5*np.pi*np.array(sorted_tvs)**2,c=colors)
+	fig, ax = plt.subplots(figsize=(12,6))
+	ax.scatter(xticks,ratings,s=5*np.pi*np.array(sorted_tvs)**2,c=colors,label='Current Season')
 	if type(past) != type(None):
-		plt.scatter(xticks,past,c='r',s=5,label = 'Previous Season')
+		plt.scatter(xticks,past,c='#ff7f00',s=20,label = 'Previous Season')
 	plt.xticks(np.arange(29),team_ticks,rotation=75)
-	plt.ylabel('Local TV Rating')
-	plt.title('TV Rating vs. Size of Market in %s'%season)
-	plt.legend()
-#	plt.savefig('../plots/avg_rating%s.png'%season)
+	ax.set_ylabel('Local TV Rating')
+	ax.set_title('TV Rating vs. Size of Market in %s'%season)
+	textstr = 'The size of the blue marker \n represents the relative size of the market.'
+
+	props = dict(boxstyle='round', facecolor='#33ffec', alpha=0.5)
+	ax.text(0.25, 0.95, textstr, transform=ax.transAxes, fontsize=10,
+		verticalalignment='top', bbox=props)
+
+	plt.legend(loc='upper left')
+	plt.ylim(0,10)
+	plt.savefig('../plots/avg_rating%s.png'%season)
 	plt.show()
 	
 
