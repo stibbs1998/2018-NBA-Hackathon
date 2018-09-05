@@ -46,7 +46,7 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 	sorted_tvs = sort_list(ratings,tvs)
 	ratings.sort()
 	avg_view = np.array(sorted_tvs)*10**4 * np.array(ratings) 
-	colors = np.arange(29)
+	colors = 14*np.ones(29)
 	xticks = np.arange(29)
 	plt.figure(figsize = (12,6))
 	plt.scatter(xticks,ratings,s=5*np.pi*np.array(sorted_tvs)**2,c=colors)
@@ -56,22 +56,24 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 	plt.ylabel('Local TV Rating')
 	plt.title('TV Rating vs. Size of Market in %s'%season)
 	plt.legend()
-	plt.savefig('../plots/avg_rating%s.png'%season)
+#	plt.savefig('../plots/avg_rating%s.png'%season)
 	plt.show()
 	
 
+	past = list(np.copy(ratings))
 
+'''
 	plt.figure(figsize = (12,6))
 	plt.scatter(xticks,avg_view,s=5*np.pi*np.array(sorted_tvs)**2,c=colors)
 	plt.xticks(np.arange(29),team_ticks,rotation = 75)
 	plt.ylabel('Avg Viewers Per Game')
 	plt.title('Avg Local Viewers Per Game in %s' %season)
 	plt.ylim(0, 2.5*10**5)
-	plt.savefig('../plots/avg_views%s.png'%season)
+#	plt.savefig('../plots/avg_views%s.png'%season)
 	plt.show()
 
 
 	past = list(np.copy(ratings))
 
 
-
+'''

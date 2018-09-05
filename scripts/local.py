@@ -2,7 +2,7 @@ import numpy as np
 import csv
 import matplotlib.pylab as plt
 
-local = np.loadtxt('RSN_Ratings_by_Game.csv', delimiter = ',', dtype = str)
+local = np.loadtxt('../RSN_Ratings_by_Game.csv', delimiter = ',', dtype = str)
 # home = local[:,7], home rating = local[:,16], home channel = local[:,14]
 # away = local[:,6], away rating = local[:,10], away channel = local[:,8]
 teams = []
@@ -67,7 +67,7 @@ labelbottom=False)
 
 plt.title("All TV Ratings for U.S. Local Markets")
 plt.legend()
-plt.savefig("all_games.png")
+#plt.savefig("all_games.png")
 plt.show()
 
 plt.figure()
@@ -82,5 +82,5 @@ labelbottom=False)
 plt.plot(r_away,'ro',label="Away")
 plt.legend()
 plt.title("Average U.S. Local Market TV Ratings (both ordered low to high)")
-plt.savefig("avg_ratings.png")
+#plt.savefig("avg_ratings.png")
 plt.show()
