@@ -6,8 +6,11 @@ natl = np.loadtxt('../National_Ratings_by_Game.csv',delimiter=',',dtype=str)
 teams,tvs = np.loadtxt('../DMA_Households.csv',delimiter=',',skiprows=1,dtype=str,unpack=True)
 tvs = tvs.astype(np.float)
 
-print(tvs)
-
+def sort_list(l1, l2):
+        zipped_pairs = zip(l1,l2)
+        z = [x for _, x in sorted(zipped_pairs)]
+        return z
+past = None
 for season in ['2014-15','2015-16','2016-17','2017-18']:
 
 	r = []
@@ -33,9 +36,16 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 	
 	plt.figure(figsize=(12,6))
 	x = np.linspace(0,29,30)
-	plt.scatter(x,r)
+	plt.scatter(x,r,s=30,label='Current Season')
+	if type(past) == list:
+		plt.scatter(x,past,marker = '>',s=15,label='Last Season')
 	plt.xticks(x,xticks,rotation=70)
 	plt.ylabel("Nat'l TV Rating")
 	plt.title("Average nat'l rating for teams in %s" %season)
 	plt.ylim(0,3)
+	plt.legend()
+	plt.savefig('../plots/national%s.png' %season)
+	
 	plt.show()
+	
+	past = list(np.copy(r))

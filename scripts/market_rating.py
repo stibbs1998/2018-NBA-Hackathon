@@ -54,8 +54,8 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 		plt.scatter(xticks,past,c='#ff7f00',s=20,label = 'Previous Season')
 	plt.xticks(np.arange(29),team_ticks,rotation=75)
 	ax.set_ylabel('Local TV Rating')
-	ax.set_title('TV Rating vs. Size of Market in %s'%season)
-	textstr = 'The size of the blue marker \n represents the relative size of the market.'
+	ax.set_title('Local TV Ratings per Market %s'%season)
+	textstr = ' $\cdot$ The size of the blue marker \n represents the relative size of the market. \n $\cdot$ The red dots(when present) show \n how each team performed the previous year.'
 
 	props = dict(boxstyle='round', facecolor='#33ffec', alpha=0.5)
 	ax.text(0.25, 0.95, textstr, transform=ax.transAxes, fontsize=10,
@@ -69,18 +69,16 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 
 	past = list(np.copy(ratings))
 
-'''
 	plt.figure(figsize = (12,6))
 	plt.scatter(xticks,avg_view,s=5*np.pi*np.array(sorted_tvs)**2,c=colors)
 	plt.xticks(np.arange(29),team_ticks,rotation = 75)
 	plt.ylabel('Avg Viewers Per Game')
 	plt.title('Avg Local Viewers Per Game in %s' %season)
 	plt.ylim(0, 2.5*10**5)
-#	plt.savefig('../plots/avg_views%s.png'%season)
+	plt.savefig('../plots/avg_views%s.png'%season)
 	plt.show()
 
 
 	past = list(np.copy(ratings))
 
 
-'''

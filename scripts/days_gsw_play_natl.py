@@ -5,7 +5,7 @@ from operator import itemgetter
 natl = np.loadtxt('../National_Ratings_by_Game.csv',dtype=str,delimiter=',')
 teams,tvs = np.loadtxt('../DMA_Households.csv',dtype=str,delimiter=',',skiprows=1,unpack=True)
 
-team = 'GSW' 
+team = 'SAS' 
 gs = team
 home = natl[:,7]==gs
 away = natl[:,8]==gs
@@ -23,7 +23,13 @@ day_not_televised = natl[other_days]
 
 print("National Ratings season to season: \n \n ")
 
-for season in ['2014-15','2015-16','2016-17','2017-18']:
+lAll = []
+lTEAM = []
+lTEAM_without = []
+lOther_Days = []
+xticks = ['2014-15','2015-16','2016-17','2017-18']
+
+for season in xticks:
 
 	all_year = natl[:,0]==season
 	all_NoNBA = natl[:,2]!='NBA TV'
@@ -51,6 +57,32 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 	r2 = day_not_televised[ind][:,9]
 	r2 = r2.astype(np.float)	
 
+	All = np.nanmean(all_r)
+	TEAM = np.nanmean(ratings)
+	TEAM_without = np.nanmean(ratings_noGSW)
+	Other_Days = np.nanmean(r2)
+
+	lAll.append(All)
+	lTEAM.append(TEAM)
+	lTEAM_without.append(TEAM_without)
+	lOther_Days.append(Other_Days)	
+
+x = [0,1,2,3]
+plt.figure(figsize=(12,6))
+plt.scatter(x,lAll,label = "All Nat'l Televised Games")
+plt.scatter(x,lTEAM, label = "Nat'l Televised Games on Nights %s is Televised" %team)
+plt.scatter(x,lTEAM_without, label = "Nat'l Televised Games on Nights %s is Televised \n (%s removed from avg)" % (team,team))
+plt.scatter(x,lOther_Days, label = "Nat'l Televised Games on Nights %s is not Nat'l Televised")
+plt.xlim(-0.5,5)
+plt.ylim(1,2.3)
+plt.xticks(x,xticks,rotation=70)
+plt.legend(loc='upper right')
+plt.title("SuperTeam's impact on National Ratings: %s" % team)
+plt.ylabel("Average National Rating")
+plt.savefig("../plots/national_ratings%s.png" %team)
+plt.show()
+
+'''
 	print(season,'days GSW played INCLUDING GSW',np.nanmean(ratings))
 	print(season,'days GSW played NOT INCLUDING GSW', np.nanmean(ratings_noGSW))
 	print(season,'all games',np.nanmean(all_r))
@@ -58,4 +90,4 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 	print('\n\n')
 	print('\n\n')
 
-
+'''
