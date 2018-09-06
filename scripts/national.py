@@ -33,7 +33,7 @@ for season in ['2014-15','2015-16','2016-17','2017-18']:
 	
 	plt.figure(figsize=(12,6))
 	x = np.linspace(0,29,30)
-	plt.scatter(x,r,s=5*np.pi*tvs**2)
+	plt.scatter(x,r)
 	plt.xticks(x,xticks,rotation=70)
 	plt.ylabel("Nat'l TV Rating")
 	plt.title("Average nat'l rating for teams in %s" %season)
