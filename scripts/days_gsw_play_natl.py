@@ -22,7 +22,7 @@ day_gsw_televised = natl[date_indicies]
 day_not_televised = natl[other_days]
 
 print("National Ratings season to season: \n \n ")
-
+lGSW = []
 lAll = []
 lTEAM = []
 lTEAM_without = []
@@ -44,13 +44,17 @@ for season in xticks:
 	no_GSWh = day_gsw_televised[:,7]!=team
 	no_GSWa = day_gsw_televised[:,8]!=team
 	no_GSW = np.logical_and(no_GSWh,no_GSWa)
+	GSW = ~no_GSW
+	ind4 = np.logical_and(ind,GSW)
 	ind2 = np.logical_and(no_GSW,ind)
 	
 	ratings = day_gsw_televised[ind][:,9]
 	ratings = ratings.astype(np.float)
 	ratings_noGSW = day_gsw_televised[ind2][:,9]
 	ratings_noGSW = ratings_noGSW.astype(np.float)	
-
+	ratings_onlyGSW = day_gsw_televised[ind4][:,9]
+	ratings_onlyGSW = ratings_onlyGSW.astype(np.float)
+	
 	year = day_not_televised[:,0]==season
 	noNBA = day_not_televised[:,2]!='NBA TV'
 	ind = np.logical_and(noNBA,year)
@@ -66,6 +70,7 @@ for season in xticks:
 	lTEAM.append(TEAM)
 	lTEAM_without.append(TEAM_without)
 	lOther_Days.append(Other_Days)	
+	lGSW.append(np.nanmean(ratings_onlyGSW))
 
 x = [0,1,2,3]
 plt.figure(figsize=(12,6))
@@ -73,6 +78,7 @@ plt.scatter(x,lAll,label = "All Nat'l Televised Games")
 plt.scatter(x,lTEAM, label = "Nat'l Televised Games on Nights %s is Televised" %team)
 plt.scatter(x,lTEAM_without, label = "Nat'l Televised Games on Nights %s is Televised \n (%s removed from avg)" % (team,team))
 plt.scatter(x,lOther_Days, label = "Nat'l Televised Games on Nights %s is not Nat'l Televised")
+plt.scatter(x,lGSW, label = "%s Nat'l TV Average Rating" %team)
 plt.xlim(-0.5,5)
 plt.ylim(1,2.3)
 plt.xticks(x,xticks,rotation=70)
