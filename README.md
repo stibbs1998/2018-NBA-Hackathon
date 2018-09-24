@@ -1,3 +1,3 @@
 # nba_hack
 
-Needed a place to store scripts between school computer and laptop.
+Code used for the 2018 NBA Hackathon!
